@@ -10,7 +10,7 @@ const NumberSelector = () => {
 
   return (
     <div>
-      <h1>Mille et un cocktail</h1>
+      <h1>Mille et un cocktails</h1>
       <label>Sélectionnez le nombre d'ingrédients que vous avez sous la main :</label>
       <select value={selectedNumber} onChange={handleNumberChange}>
         {[...Array(10)].map((_, index) => (
