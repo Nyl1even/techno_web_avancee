@@ -1,51 +1,39 @@
+// App.js
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import NumberSelector from './NumberSelector';
+import { fetchIngredients } from './api';
 
-const NumberSelector = () => {
-  const [selectedNumber, setSelectedNumber] = useState(1);
-  const [inputValues, setInputValues] = useState(Array.from({ length: 1 }, () => ""));
+const App = () => {
+  const [ingredients, setIngredients] = useState([]);
+  const [crossSearch, setCrossSearch] = useState(false);
 
-  const handleNumberChange = (e) => {
-    const newNumber = parseInt(e.target.value, 10);
-    setSelectedNumber(newNumber);
-    setInputValues(Array.from({ length: newNumber }, () => ""));
-  };
+  useEffect(() => {
+    // Utilisation de la fonction pour récupérer la liste des ingrédients
+    fetchIngredients()
+      .then((ingredientsList) => {
+        setIngredients(ingredientsList);
+      })
+      .catch((error) => {
+        console.error('Erreur lors de la récupération des ingrédients:', error.message);
+      });
+  }, []);
 
-  const handleInputChange = (index, value) => {
-    const newInputValues = [...inputValues];
-    newInputValues[index] = value;
-    setInputValues(newInputValues);
+  const handleCrossSearchChange = (e) => {
+    setCrossSearch(e.target.checked);
   };
 
   return (
     <div>
-      <label>Sélectionnez un nombre :</label>
-      <select value={selectedNumber} onChange={handleNumberChange}>
-        {[...Array(10)].map((_, index) => (
-          <option key={index + 1} value={index + 1}>
-            {index + 1}
-          </option>
-        ))}
-      </select>
-      <label>
-      <input type="checkbox"></input>
-      Recherche croisée</label>
-      <div>
-        {[...Array(selectedNumber)].map((_, index) => (
-          <input
-            key={index}
-            type="text"
-            placeholder={`Zone de texte ${index + 1}`}
-            value={inputValues[index]}
-            onChange={(e) => handleInputChange(index, e.target.value)}
-          />
-        ))}
-      </div>
+      <h1>Mon application React</h1>
+      <NumberSelector
+        ingredients={ingredients}
+        crossSearch={crossSearch}
+        setCrossSearch={setCrossSearch}
+      />
+      {/* Le reste de votre application ici */}
     </div>
   );
 };
 
-export default NumberSelector;
-
-
-
+export default App;
