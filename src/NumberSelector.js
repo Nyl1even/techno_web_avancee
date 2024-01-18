@@ -17,6 +17,10 @@ const NumberSelector = ({ ingredients, crossSearch, setCrossSearch }) => {
     setInputValues(newInputValues);
   };
 
+  const handleCrossSearchChange = (e) => {
+    setCrossSearch(e.target.checked);
+  };
+
   return (
     <div>
       <label>Sélectionnez un nombre :</label>
