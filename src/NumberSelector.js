@@ -1,15 +1,11 @@
-// NumberSelector.js
 import React, { useState } from 'react';
-import Select from 'react-select';
 
-const NumberSelector = ({ ingredients, crossSearch, setCrossSearch }) => {
-  const [selectedNumber, setSelectedNumber] = useState(1);
-  const [inputValues, setInputValues] = useState(Array.from({ length: 1 }, () => ""));
-  const [selectedIngredients, setSelectedIngredients] = useState([]);
+const NumberSelector = ({ onCrossSearchChange,selectedNumber, onNumberChange, onInputChange, crossSearch, ingredients }) => {
+  const [inputValues, setInputValues] = useState(Array.from({ length: selectedNumber }, () => ""));
 
   const handleNumberChange = (e) => {
     const newNumber = parseInt(e.target.value, 10);
-    setSelectedNumber(newNumber);
+    onNumberChange(newNumber);
     setInputValues(Array.from({ length: newNumber }, () => ""));
   };
 
@@ -17,10 +13,19 @@ const NumberSelector = ({ ingredients, crossSearch, setCrossSearch }) => {
     const newInputValues = [...inputValues];
     newInputValues[index] = value;
     setInputValues(newInputValues);
+
+    // Filtrer les ingrédients en fonction de la saisie
+    const filterIngredients = ingredients.filter(
+      (ingredient) =>
+        ingredient.strIngredient1.toLowerCase().includes(value.toLowerCase())
+    );
+
+    // Mettre à jour filteredIngredients dans le composant parent
+    onInputChange(index, value, filterIngredients);
   };
 
-  const handleIngredientChange = (selectedOptions) => {
-    setSelectedIngredients(selectedOptions);
+  const handleCrossSearchChange = () => {
+    onCrossSearchChange(!crossSearch);
   };
 
   return (
@@ -33,31 +38,29 @@ const NumberSelector = ({ ingredients, crossSearch, setCrossSearch }) => {
           </option>
         ))}
       </select>
-
       <label>
-        <input type="checkbox" checked={crossSearch} onChange={() => setCrossSearch(!crossSearch)} />
+        <input type="checkbox" checked={crossSearch} onChange={handleCrossSearchChange} />
         Recherche croisée
       </label>
-
-      <div>
-        {[...Array(selectedNumber)].map((_, index) => (
+      {[...Array(selectedNumber)].map((_, index) => (
+        <div key={index}>
           <input
-            key={index}
             type="text"
             placeholder={`Zone de texte ${index + 1}`}
             value={inputValues[index]}
             onChange={(e) => handleInputChange(index, e.target.value)}
           />
-        ))}
-      </div>
-
-      <label>Sélectionnez des ingrédients :</label>
-      <Select
-        isMulti
-        options={ingredients.map((ingredient) => ({ value: ingredient, label: ingredient }))}
-        value={selectedIngredients}
-        onChange={handleIngredientChange}
-      />
+          {ingredients && ingredients.length > 0 && (
+            <select value={inputValues[index]} onChange={(e) => handleInputChange(index, e.target.value)}>
+              {ingredients.map((ingredient) => (
+                <option key={ingredient.strIngredient1} value={ingredient.strIngredient1}>
+                  {ingredient.strIngredient1}
+                </option>
+              ))}
+            </select>
+          )}
+        </div>
+      ))}
     </div>
   );
 };
