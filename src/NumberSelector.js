@@ -1,9 +1,11 @@
 // NumberSelector.js
 import React, { useState } from 'react';
+import Select from 'react-select';
 
 const NumberSelector = ({ ingredients, crossSearch, setCrossSearch }) => {
   const [selectedNumber, setSelectedNumber] = useState(1);
   const [inputValues, setInputValues] = useState(Array.from({ length: 1 }, () => ""));
+  const [selectedIngredients, setSelectedIngredients] = useState([]);
 
   const handleNumberChange = (e) => {
     const newNumber = parseInt(e.target.value, 10);
@@ -17,8 +19,8 @@ const NumberSelector = ({ ingredients, crossSearch, setCrossSearch }) => {
     setInputValues(newInputValues);
   };
 
-  const handleCrossSearchChange = (e) => {
-    setCrossSearch(e.target.checked);
+  const handleIngredientChange = (selectedOptions) => {
+    setSelectedIngredients(selectedOptions);
   };
 
   return (
@@ -33,7 +35,7 @@ const NumberSelector = ({ ingredients, crossSearch, setCrossSearch }) => {
       </select>
 
       <label>
-        <input type="checkbox" checked={crossSearch} onChange={handleCrossSearchChange} />
+        <input type="checkbox" checked={crossSearch} onChange={() => setCrossSearch(!crossSearch)} />
         Recherche croisée
       </label>
 
@@ -48,6 +50,14 @@ const NumberSelector = ({ ingredients, crossSearch, setCrossSearch }) => {
           />
         ))}
       </div>
+
+      <label>Sélectionnez des ingrédients :</label>
+      <Select
+        isMulti
+        options={ingredients.map((ingredient) => ({ value: ingredient, label: ingredient }))}
+        value={selectedIngredients}
+        onChange={handleIngredientChange}
+      />
     </div>
   );
 };

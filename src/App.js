@@ -19,10 +19,6 @@ const App = () => {
       });
   }, []);
 
-  const handleCrossSearchChange = (e) => {
-    setCrossSearch(e.target.checked);
-  };
-
   return (
     <div>
       <h1>Mon application React</h1>
