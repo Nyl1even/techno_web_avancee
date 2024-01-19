@@ -59,10 +59,10 @@ const CocktailSearch = () => {
     <div class='mainDiv'>
       <h1 class="frontTitle">Cocktail Search</h1>
       <NumberSelector
-        selectedNumber={inputValues.length}
+
         onNumberChange={handleNumberChange}
         onInputChange={handleInputChange}
-        crossSearch={crossSearch}
+
         onCrossSearchChange={handleCrossSearchChange}
         ingredients={filteredIngredients}
       />
