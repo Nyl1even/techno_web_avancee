@@ -22,11 +22,6 @@ const CocktailSearch = () => {
     fetchIngredients();
   }, []);
 
-  const handleNumberChange = (e) => {
-    const newNumber = parseInt(e.target.value, 10);
-    setInputValues(Array.from({ length: newNumber }, () => ""));
-  };
-
   const handleInputChange = (index, value) => {
     const newInputValues = [...inputValues];
     newInputValues[index] = value;
@@ -39,10 +34,6 @@ const CocktailSearch = () => {
     );
 
     setFilteredIngredients(filterIngredients);
-  };
-
-  const handleCrossSearchChange = () => {
-    setCrossSearch(!crossSearch);
   };
 
   const searchCocktails = async () => {
@@ -59,11 +50,7 @@ const CocktailSearch = () => {
     <div class='mainDiv'>
       <h1 class="frontTitle">Cocktail Search</h1>
       <NumberSelector
-
-        onNumberChange={handleNumberChange}
         onInputChange={handleInputChange}
-
-        onCrossSearchChange={handleCrossSearchChange}
         ingredients={filteredIngredients}
       />
       <button onClick={searchCocktails} class="button" >Search Cocktails</button>
