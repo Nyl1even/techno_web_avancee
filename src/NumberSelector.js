@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const NumberSelector = ({ onCrossSearchChange, selectedNumber, onNumberChange, onInputChange, crossSearch, ingredients }) => {
+const NumberSelector = ({  selectedNumber, onNumberChange, onInputChange, ingredients }) => {
   const [inputValues, setInputValues] = useState(Array.from({ length: selectedNumber }, () => ""));
   const [selectedOption, setSelectedOption] = useState(""); // Nouvel état pour la sélection entre verre et ingrédient
 
@@ -23,10 +23,6 @@ const NumberSelector = ({ onCrossSearchChange, selectedNumber, onNumberChange, o
 
     // Mettre à jour filteredIngredients dans le composant parent
     onInputChange(index, value, filterIngredients);
-  };
-
-  const handleCrossSearchChange = () => {
-    onCrossSearchChange(!crossSearch);
   };
 
   const handleOptionChange = (e) => {
