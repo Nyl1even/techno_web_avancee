@@ -40,7 +40,7 @@ code {
 }
 
 .frontTitle {
-  font-size: 3em;
+  font-size: 5em;
   font-weight: bold;
   color: #282c34;
   font-family: "Tiki_Tropic_Bold";
@@ -63,8 +63,8 @@ code {
   border-radius: 15px;
   padding: 10px;
   margin: 10px;
-  font-size: 1.5rem;
-  font-weight: bold;
+  font-size: 2em;
+  font-family: "Tiki_Tropic_Bold";
 }
 
 .button:hover {
@@ -72,3 +72,28 @@ code {
   color: #282c34;
 }
 
+#input {
+  width: 100%;
+  font-size: 1.5rem;
+  text-align: center;
+  border-radius: 15px;
+  padding: 10px;
+  margin: 10px;
+  background-color: #c7fdf7;
+}
+
+#match {
+  font-size: 3em;
+  font-family: "Tiki_Tropic_Bold";
+}
+
+#matchList {
+  font-size: 2em;
+  font-family: "Tiki_Tropic_Bold";
+  color: #282c34;
+}
+
+#intruct {
+  font-family: "Tiki_Tropic_Bold";
+  text-align: center;
+}
