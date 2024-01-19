@@ -5,10 +5,9 @@ import NumberSelector from './NumberSelector';
 const CocktailSearch = () => {
   const [ingredients, setIngredients] = useState([]);
   const [inputValues, setInputValues] = useState(Array.from({ length: 1 }, () => ""));
-  const [crossSearch, setCrossSearch] = useState(false);
   const [cocktails, setCocktails] = useState([]);
   const [filteredIngredients, setFilteredIngredients] = useState([]); // Modification ici
-
+  
   useEffect(() => {
     const fetchIngredients = async () => {
       try {
@@ -19,6 +18,21 @@ const CocktailSearch = () => {
       }
     };
 
+    const [selectedOption, setSelectedOption] = useState('ingrédient');
+
+    const handleRadioButtonChange = (e) => {
+        setFetchOption(e.target.value);
+    };
+
+    const searchCocktails = async () => {
+        let url = '';
+        if (fetchOption === 'option1') {
+            url = 'https://api.example.com/option1';
+        } else if (fetchOption === 'option2') {
+            url = 'https://api.example.com/option2';
+        }
+        // Rest of your fetch logic
+    };
     fetchIngredients();
   }, []);
 
@@ -46,6 +60,35 @@ const CocktailSearch = () => {
     }
   };
 
+  const NumberSelector = ({  selectedNumber, onNumberChange, onInputChange, ingredients }) => {
+    const [inputValues, setInputValues] = useState(Array.from({ length: selectedNumber }, () => ""));
+    const [selectedOption, setSelectedOption] = useState(""); // Nouvel état pour la sélection entre verre et ingrédient
+  
+    const handleNumberChange = (e) => {
+      const newNumber = parseInt(e.target.value, 10);
+      onNumberChange(newNumber);
+      setInputValues(Array.from({ length: newNumber }, () => ""));
+    };
+  
+    const handleInputChange = (index, value) => {
+      const newInputValues = [...inputValues];
+      newInputValues[index] = value;
+      setInputValues(newInputValues);
+  
+      // Filtrer les ingrédients en fonction de la saisie
+      const filterIngredients = ingredients.filter(
+        (ingredient) =>
+          ingredient.strIngredient1.toLowerCase().includes(value.toLowerCase())
+      );
+  
+      // Mettre à jour filteredIngredients dans le composant parent
+      onInputChange(index, value, filterIngredients);
+    };
+  
+    const handleOptionChange = (e) => {
+      setSelectedOption(e.target.value);
+    };
+  }
   return (
     <div class='mainDiv'>
       <h1 class="frontTitle">Cocktail Search</h1>
