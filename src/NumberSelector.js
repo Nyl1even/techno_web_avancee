@@ -29,7 +29,7 @@ const NumberSelector = ({ onCrossSearchChange,selectedNumber, onNumberChange, on
   };
 
   return (
-    <div>
+    <div class="numberSelectorDiv">
       <label>Sélectionnez un nombre :</label>
       <select value={selectedNumber} onChange={handleNumberChange}>
         {[...Array(10)].map((_, index) => (

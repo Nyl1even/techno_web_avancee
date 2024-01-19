@@ -56,8 +56,8 @@ const CocktailSearch = () => {
   };
 
   return (
-    <div>
-      <h1>Cocktail Search</h1>
+    <div class='mainDiv'>
+      <h1 class="frontTitle">Cocktail Search</h1>
       <NumberSelector
         selectedNumber={inputValues.length}
         onNumberChange={handleNumberChange}
@@ -66,7 +66,7 @@ const CocktailSearch = () => {
         onCrossSearchChange={handleCrossSearchChange}
         ingredients={filteredIngredients}
       />
-      <button onClick={searchCocktails}>Search Cocktails</button>
+      <button onClick={searchCocktails} class="button" >Search Cocktails</button>
       <div>
         <h2>Matching Cocktails:</h2>
         <ul>
